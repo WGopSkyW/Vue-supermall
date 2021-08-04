@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" class="wrapper">
     <router-view/>
-    <main-tabbar/>
+    <main-tabbar></main-tabbar>
   </div>
 </template>
 
@@ -17,5 +17,6 @@ export default {
 </script>
 
 <style>
-@import "assets/css/base.css"
+@import "assets/css/base.css";
+
 </style>

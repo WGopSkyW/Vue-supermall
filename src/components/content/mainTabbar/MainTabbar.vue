@@ -1,5 +1,6 @@
 <!--  -->
 <template>
+<div class="main-tabbar">
   <tab-bar>
     <tab-bar-item path="/home">
       <img slot="item-icon" src="~assets/img/tabbar/home.svg" alt="" />
@@ -38,6 +39,8 @@
       <div slot="item-text">我的</div>
     </tab-bar-item>
   </tab-bar>
+</div>
+  
 </template>
 
 <script>
@@ -53,4 +56,8 @@ export default {
 };
 </script>
 <style  scoped>
+.main-tabbar{
+  position: relative;
+  z-index: 9999;
+}
 </style>
