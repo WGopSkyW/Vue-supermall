@@ -4,7 +4,7 @@
     <swiper>
       <swiper-item v-for="item in banners">
       <a :href="item.link">
-        <img :src="item.image"></img>
+        <img :src="item.image" @load="imageLoad"></img>
       </a>
   </swiper-item>
   </swiper>
@@ -23,10 +23,23 @@ export default {
   props: {
     banners: {
       typeof: Array,
-       // 类型是对象或者数组时, 默认值必须是一个函数
+      // 类型是对象或者数组时, 默认值必须是一个函数
       default() {
         return [];
       },
+    },
+  },
+  data() {
+    return {
+      isLoad: false,
+    }
+  },
+  methods: {
+    imageLoad() {
+      if (!this.isLoad) {
+        this.$emit("swiperImageLoad");
+        this.isLoad = true;
+      }
     },
   },
 };
