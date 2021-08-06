@@ -70,8 +70,8 @@ export default {
       currentType: "pop",
       isShowBackTop: false,
       tabOffsetTop:0,
-      isTabFixed:false
-
+      isTabFixed:false,
+      SaveY:0
     };
   },
   created() {
@@ -80,6 +80,15 @@ export default {
     this.getHomeGoods("pop");
     this.getHomeGoods("new");
     this.getHomeGoods("sell");
+  },
+  activated() {
+    this.$refs.scroll.scrollTo (0,this.SaveY,0);
+    this.$refs.scroll.refresh();
+   
+  },
+  deactivated() {
+    this.SaveY = this.$refs.scroll.scroll.y;
+  
   },
   mounted() {
     const refresh = debounce(this.$refs.scroll.refresh,100)

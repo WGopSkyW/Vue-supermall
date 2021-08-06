@@ -28,7 +28,6 @@ export default {
     };
   },
   mounted() {
-    
     this.scroll = new BScroll(this.$refs.wrapper, {
       ObserveDom: true,
       observerImage: true,
@@ -39,7 +38,7 @@ export default {
     this.scroll.on("scroll", (position) => {
       this.$emit("scroll", position);
     });
-    this.scroll.on("pullingUp", () => {
+    this.pullUpLoad && this.scroll.on("pullingUp", () => {
       this.$emit("pullingUp");
     });
     
