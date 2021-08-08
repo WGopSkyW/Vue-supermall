@@ -37,14 +37,14 @@ import Scroll from "components/common/scroll/Scroll";
 
 import TabControl from "components/content/tabControl/TabControl";
 import GoodList from "components/content/goods/GoodsList";
-import BackTop from "components/content/backTop/BackTop";
+// import BackTop from "components/content/backTop/BackTop";
 
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "./childComps/RecommendView";
 import FeatureView from "./childComps/FeatureView";
 
 import { getHomeMultidata, getHomeGoods } from "network/home";
-import {debounce} from "common/utils";
+import {itemListenerMixin , backTopMixin} from "common/mixin";
 
 export default {
   name: "Home",
@@ -53,11 +53,12 @@ export default {
     Scroll,
     TabControl,
     GoodList,
-    BackTop,
+    // BackTop,
     HomeSwiper,
     RecommendView,
     FeatureView,
   },
+  mixins:[itemListenerMixin,backTopMixin],
   data() {
     return {
       banners: [],
@@ -68,10 +69,10 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
-      isShowBackTop: false,
+      // isShowBackTop: false,
       tabOffsetTop:0,
       isTabFixed:false,
-      SaveY:0
+      SaveY:0,
     };
   },
   created() {
@@ -88,13 +89,9 @@ export default {
   },
   deactivated() {
     this.SaveY = this.$refs.scroll.scroll.y;
-  
+    this.$bus.$off('itemImageLoad',this.itemImgListener);
   },
   mounted() {
-    const refresh = debounce(this.$refs.scroll.refresh,100)
-    this.$bus.$on('itemImageLoad',()=>{
-      refresh()
-    })
   },
   computed: {
     showGoods() {
@@ -115,7 +112,7 @@ export default {
           break;
       }
       this.$refs.tabControl1.currentIndex =index;
-      //保证样式显示是点击的链接显示样式
+      //保证样式显示是点击的链接显示样式 
       this.$refs.tabControl2.currentIndex= index;
     },
 
@@ -134,14 +131,15 @@ export default {
         this.$refs.scroll.finishPullUp();
       });
     },
-    backTop() {
-      this.$refs.scroll.scrollTo(0, 0);
-    },
+    // backTop() {
+    //   this.$refs.scroll.scrollTo(0, 0);
+    // },
     contentScroll(position) {
-      this.isShowBackTop = (-position.y) > 1000;
+      // this.isShowBackTop = (-position.y) > 1000;
+      this.listernerBackTop(position);
       this.isTabFixed = (-position.y) > this.tabOffsetTop;
-
     },
+    
     loadMore(){
       this.getHomeGoods(this.currentType)
     },

@@ -41,10 +41,10 @@ export default {
       // 因为imgLoad（）的调用次数与图片张数相同，但是我们不想每次加载完成一张图片就发送一次刷新，而是等图片加载完成之后，在发送
       // 通过++this.count可以记录当前调用的次数，只要当调用次数等于图片张数时，说明图片加载完成，可以发送刷新了
       // 判断, 所有的图片都加载完了, 那么进行一次回调就可以了.
-      // if(++this.count === this.imagesLength){
-      //   this.$emit('imageLoad')
-      // }
-       this.$emit('imageLoad')
+      if(++this.count === this.imagesLength){
+        this.$emit('imageLoad')
+      }
+      //  this.$emit('imageLoad')
     }
   },
   // 只有detailInfo属性的里面数组的长度发生改变，watch才会执行，不然会一直缓存结果，就不用每次调用属性获取长度
